@@ -1,0 +1,68 @@
+type User @table {
+  username: String!
+  email: String!
+  createdAt: Timestamp!
+  displayName: String
+  bio: String
+  profilePictureUrl: String
+}
+
+type Book @table {
+  title: String!
+  author: String!
+  publicationYear: Int!
+  createdAt: Timestamp!
+  description: String
+  genre: String
+  coverImageUrl: String
+  isbn: String
+}
+
+type ReadingActivity @table {
+  user: User!
+  book: Book!
+  status: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  currentPage: Int
+  startDate: Date
+  endDate: Date
+}
+
+type Review @table {
+  user: User!
+  book: Book!
+  readingActivity: ReadingActivity!
+  rating: Int!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  reviewText: String
+  isPublic: Boolean
+}
+
+type Challenge @table {
+  creator: User!
+  name: String!
+  startDate: Date!
+  endDate: Date!
+  goal: String!
+  createdAt: Timestamp!
+  description: String
+  isPublic: Boolean
+}
+
+type ReadingList @table {
+  user: User!
+  name: String!
+  createdAt: Timestamp!
+  updatedAt: Timestamp!
+  description: String
+  isPublic: Boolean
+}
+
+type ReadingListItem @table(key: ["readingList", "book"]) {
+  readingList: ReadingList!
+  book: Book!
+  addedAt: Timestamp!
+  notes: String
+}
