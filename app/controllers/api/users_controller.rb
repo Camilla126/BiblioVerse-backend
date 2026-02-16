@@ -1,7 +1,6 @@
-require_relative '../application_controller' # <-- ADICIONE ISSO AQUI
+require_relative '../application_controller'
 
 class Api::UsersController < ApplicationController
-  # Adicionamos o 'raise: false' para evitar o erro de "not defined"
   skip_before_action :authenticate_user!, only: [:create], raise: false
   before_action :authenticate_user!, only: [:show, :update], raise: false
 
@@ -30,7 +29,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params_create
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password)
   end
 
   def user_params_update
