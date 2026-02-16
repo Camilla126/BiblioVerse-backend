@@ -1,4 +1,4 @@
-require_relative '../application_controller'
+require_relative '../../../controllers/application_controller'
 
 class Api::UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create], raise: false
