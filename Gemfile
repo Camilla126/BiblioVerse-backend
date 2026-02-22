@@ -40,7 +40,7 @@ group :development do
 end
 
 # Gemfile
-gem "puma", "~> 6.0"
+gem "puma", "~> 7.2"
 
 gem "rack-cors"
 
