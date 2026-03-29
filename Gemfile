@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 8.1.2"
+gem "rails", "~> 8.1.3"
 # gem "propshaft" # Removido: pipeline de assets
 # gem "puma", ">= 5.0" # Mantido para servidor
 # gem "importmap-rails" # Removido: frontend
