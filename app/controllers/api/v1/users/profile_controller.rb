@@ -2,7 +2,6 @@ module Api
   module V1
     module Users
       class ProfileController < ApplicationController
-        # Já exige login automaticamente pelo ApplicationController
         
         def show
           render json: current_user
