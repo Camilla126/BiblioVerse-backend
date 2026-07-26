@@ -45,3 +45,5 @@ gem "puma", "~> 6.0"
 gem "rack-cors"
 
 gem "jwt"
+gem "rspec-rails", "~> 8.0", :groups => [:development, :test]
+gem "factory_bot_rails", "~> 6.5", :groups => [:development, :test]

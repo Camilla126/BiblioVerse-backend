@@ -16,6 +16,9 @@ Rails.application.routes.draw do
         resource :profile, only: [:show, :update], controller: 'profile'
       end
 
+      # Rotas de Livros (Catálogo)
+      resources :books, only: [:index, :show]
+
     end
   end
 end
