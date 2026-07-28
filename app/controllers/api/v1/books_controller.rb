@@ -1,6 +1,8 @@
 module Api
   module V1
     class BooksController < ApplicationController
+      skip_before_action :authenticate_user!, raise: false
+
       def index
         books = Book.all
         books = books.where("title ILIKE :q OR author ILIKE :q", q: "%#{params[:q]}%") if params[:q].present?
