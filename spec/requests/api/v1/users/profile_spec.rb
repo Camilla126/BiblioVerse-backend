@@ -21,7 +21,9 @@ RSpec.describe "Api::V1::Users::Profile", type: :request do
       get "/api/v1/users/profile", headers: { "Authorization" => "Bearer #{token}" }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)["id"]).to eq(user.id)
+      body = JSON.parse(response.body)
+      expect(body["id"]).to eq(user.id)
+      expect(body).not_to have_key("password_digest")
     end
   end
 end
