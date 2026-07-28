@@ -8,7 +8,7 @@ gem "rails", "~> 8.1.2"
 # gem "stimulus-rails" # Removido: frontend
 # gem "jbuilder" # Removido: não usar builder de views
 # gem "redis", ">= 4.0.1" # Comente/descomente conforme uso
-gem "bcrypt", "~> 3.1.7" # Comente/descomente conforme uso
+gem "bcrypt", "~> 3.1.22" # Comente/descomente conforme uso
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
@@ -40,10 +40,10 @@ group :development do
 end
 
 # Gemfile
-gem "puma", "~> 6.0"
+gem "puma", ">= 8.0.2"
 
 gem "rack-cors"
 
-gem "jwt"
+gem "jwt", ">= 3.2.0"
 gem "rspec-rails", "~> 8.0", groups: [ :development, :test ]
 gem "factory_bot_rails", "~> 6.5", groups: [ :development, :test ]
