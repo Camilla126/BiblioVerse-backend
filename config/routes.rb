@@ -24,6 +24,12 @@ Rails.application.routes.draw do
 
       # Rotas da Estante do Usuário
       resources :user_books, only: [ :index, :create, :update ]
+
+      # Rotas do Estúdio de Escrita
+      resources :stories, only: [ :index, :create ] do
+        resources :chapters, only: [ :create ]
+      end
+      resources :chapters, only: [ :update ]
     end
   end
 end
