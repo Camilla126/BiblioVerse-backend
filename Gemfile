@@ -16,9 +16,9 @@ gem "kamal", require: false
 gem "thruster", require: false
 gem "firebase", "~> 0.2.0"
 gem "dotenv-rails"
-gem 'google-cloud-firestore'
+gem "google-cloud-firestore"
 
-gem 'pg'
+gem "pg"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -45,5 +45,5 @@ gem "puma", "~> 6.0"
 gem "rack-cors"
 
 gem "jwt"
-gem "rspec-rails", "~> 8.0", :groups => [:development, :test]
-gem "factory_bot_rails", "~> 6.5", :groups => [:development, :test]
+gem "rspec-rails", "~> 8.0", groups: [ :development, :test ]
+gem "factory_bot_rails", "~> 6.5", groups: [ :development, :test ]
