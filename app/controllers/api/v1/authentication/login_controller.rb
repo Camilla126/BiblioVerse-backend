@@ -9,7 +9,7 @@ module Api
 
           if user&.authenticate(params[:password])
             token = ::Authentication::JwtService.encode(user_id: user.id)
-            render json: { token: token, user: user }
+            render json: { token: token, user: UserSerializer.render(user) }
           else
             render json: { error: "Credenciais inválidas" }, status: :unauthorized
           end

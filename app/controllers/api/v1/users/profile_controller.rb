@@ -3,12 +3,12 @@ module Api
     module Users
       class ProfileController < ApplicationController
         def show
-          render json: current_user
+          render json: UserSerializer.render(current_user)
         end
 
         def update
           if current_user.update(user_params)
-            render json: current_user
+            render json: UserSerializer.render(current_user)
           else
             render json: current_user.errors, status: :unprocessable_entity
           end
