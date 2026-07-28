@@ -2,7 +2,6 @@ module Api
   module V1
     module Users
       class ProfileController < ApplicationController
-        
         def show
           render json: current_user
         end

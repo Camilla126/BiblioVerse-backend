@@ -1,10 +1,10 @@
 # Serviço para conectar ao Firebase
-require 'firebase'
+require "firebase"
 
 class FirebaseService
   def initialize
-    base_uri = ENV['FIREBASE_DATABASE_URL']
-    secret = ENV['FIREBASE_SECRET']
+    base_uri = ENV["FIREBASE_DATABASE_URL"]
+    secret = ENV["FIREBASE_SECRET"]
     @firebase = Firebase::Client.new(base_uri, secret)
   end
 
