@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
       # Rotas de Livros (Catálogo)
       resources :books, only: [ :index, :show ]
+
+      # Rotas do Feed Social
+      get "feed", to: "feed#index"
+      resources :posts, only: [ :create ]
     end
   end
 end
