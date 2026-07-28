@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_28_231115) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_28_231554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,6 +25,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_231115) do
     t.datetime "updated_at", null: false
     t.index ["genre"], name: "index_books_on_genre"
     t.index ["title"], name: "index_books_on_title"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "book_id"
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.integer "kind", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["book_id"], name: "index_posts_on_book_id"
+    t.index ["created_at"], name: "index_posts_on_created_at"
+    t.index ["kind"], name: "index_posts_on_kind"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "user_books", force: :cascade do |t|
@@ -49,6 +62,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_231115) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "posts", "books"
+  add_foreign_key "posts", "users"
   add_foreign_key "user_books", "books"
   add_foreign_key "user_books", "users"
 end
