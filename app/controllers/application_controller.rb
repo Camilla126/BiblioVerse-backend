@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::API
+  before_action :authenticate_user!
+
   def authenticate_user!
     header = request.headers["Authorization"]
-    header = header.split(" ").last if header
+    token = header&.split(" ")&.last
 
-    begin
-      decoded = Authentication::JwtService.decode(header)
-      @current_user = User.find(decoded[:user_id])
-    rescue ActiveRecord::RecordNotFound, JWT::DecodeError
-      render json: { errors: [ "Não autorizado" ] }, status: :unauthorized
-    end
+    decoded = token && Authentication::JwtService.decode(token)
+    @current_user = decoded && User.find_by(id: decoded[:user_id])
+
+    render json: { errors: [ "Não autorizado" ] }, status: :unauthorized unless @current_user
   end
 
   def current_user
