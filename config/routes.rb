@@ -21,6 +21,9 @@ Rails.application.routes.draw do
       # Rotas do Feed Social
       get "feed", to: "feed#index"
       resources :posts, only: [ :create ]
+
+      # Rotas da Estante do Usuário
+      resources :user_books, only: [ :index, :create, :update ]
     end
   end
 end
