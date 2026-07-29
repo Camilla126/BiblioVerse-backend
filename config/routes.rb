@@ -43,6 +43,10 @@ Rails.application.routes.draw do
 
       # Rotas de Perfil Público (por handle)
       resources :profiles, only: [ :show ], param: :handle
+
+      # Rotas de Notificações
+      get "notifications", to: "notifications#index"
+      patch "notifications/mark_all_read", to: "notifications#mark_all_read"
     end
   end
 end
