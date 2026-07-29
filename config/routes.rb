@@ -40,6 +40,9 @@ Rails.application.routes.draw do
           get "following", to: "follows#following"
         end
       end
+
+      # Rotas de Perfil Público (por handle)
+      resources :profiles, only: [ :show ], param: :handle
     end
   end
 end
