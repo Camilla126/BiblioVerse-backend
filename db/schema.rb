@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_29_000623) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_29_001027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "achievements", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.string "icon"
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_achievements_on_name", unique: true
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "author", null: false
@@ -73,6 +82,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_000623) do
     t.index ["user_id"], name: "index_stories_on_user_id"
   end
 
+  create_table "user_achievements", force: :cascade do |t|
+    t.bigint "achievement_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "unlocked_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["achievement_id"], name: "index_user_achievements_on_achievement_id"
+    t.index ["user_id", "achievement_id"], name: "index_user_achievements_on_user_id_and_achievement_id", unique: true
+    t.index ["user_id"], name: "index_user_achievements_on_user_id"
+  end
+
   create_table "user_books", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.datetime "created_at", null: false
@@ -88,11 +108,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_000623) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "avatar_url"
+    t.text "bio"
+    t.string "cover_url"
     t.datetime "created_at", null: false
     t.string "email"
+    t.string "handle"
+    t.string "location"
     t.string "name"
     t.string "password_digest"
     t.datetime "updated_at", null: false
+    t.string "website"
+    t.index ["handle"], name: "index_users_on_handle", unique: true
   end
 
   add_foreign_key "chapters", "stories"
@@ -101,6 +128,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_000623) do
   add_foreign_key "posts", "books"
   add_foreign_key "posts", "users"
   add_foreign_key "stories", "users"
+  add_foreign_key "user_achievements", "achievements"
+  add_foreign_key "user_achievements", "users"
   add_foreign_key "user_books", "books"
   add_foreign_key "user_books", "users"
 end
