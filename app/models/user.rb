@@ -6,6 +6,11 @@ class User < ApplicationRecord
   has_many :books, through: :user_books
   has_many :stories, dependent: :destroy
 
+  has_many :active_follows, class_name: "Follow", foreign_key: :follower_id, inverse_of: :follower, dependent: :destroy
+  has_many :followed_users, through: :active_follows, source: :followed
+  has_many :passive_follows, class_name: "Follow", foreign_key: :followed_id, inverse_of: :followed, dependent: :destroy
+  has_many :followers, through: :passive_follows, source: :follower
+
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
 end
