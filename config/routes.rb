@@ -30,6 +30,16 @@ Rails.application.routes.draw do
         resources :chapters, only: [ :create ]
       end
       resources :chapters, only: [ :update ]
+
+      # Rotas do Sistema de Seguir
+      resources :users, only: [] do
+        member do
+          post "follow", to: "follows#create"
+          delete "follow", to: "follows#destroy"
+          get "followers", to: "follows#followers"
+          get "following", to: "follows#following"
+        end
+      end
     end
   end
 end
