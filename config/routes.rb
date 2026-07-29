@@ -20,7 +20,9 @@ Rails.application.routes.draw do
 
       # Rotas do Feed Social
       get "feed", to: "feed#index"
-      resources :posts, only: [ :create ]
+      resources :posts, only: [ :create ] do
+        resources :comments, only: [ :create ]
+      end
 
       # Rotas da Estante do Usuário
       resources :user_books, only: [ :index, :create, :update ]
@@ -47,6 +49,10 @@ Rails.application.routes.draw do
       # Rotas de Notificações
       get "notifications", to: "notifications#index"
       patch "notifications/mark_all_read", to: "notifications#mark_all_read"
+
+      # Rotas de Avaliações e Curtidas
+      resources :reviews, only: [ :create ]
+      resources :likes, only: [ :create, :destroy ]
     end
   end
 end
