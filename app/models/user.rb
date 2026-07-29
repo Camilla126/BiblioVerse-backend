@@ -11,6 +11,10 @@ class User < ApplicationRecord
   has_many :passive_follows, class_name: "Follow", foreign_key: :followed_id, inverse_of: :followed, dependent: :destroy
   has_many :followers, through: :passive_follows, source: :follower
 
+  has_many :user_achievements, dependent: :destroy
+  has_many :achievements, through: :user_achievements
+
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
+  validates :handle, uniqueness: true, allow_nil: true
 end
