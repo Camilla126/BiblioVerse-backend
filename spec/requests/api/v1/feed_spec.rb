@@ -27,5 +27,17 @@ RSpec.describe "Api::V1::Feed", type: :request do
 
       expect(JSON.parse(response.body)).to eq([])
     end
+
+    it "inclui a contagem de curtidas e comentários de cada post" do
+      post_record = create(:post)
+      create_list(:like, 2, likeable: post_record)
+      create(:comment, post: post_record)
+
+      get "/api/v1/feed", headers: auth_headers
+
+      body = JSON.parse(response.body).first
+      expect(body["likes_count"]).to eq(2)
+      expect(body["comments_count"]).to eq(1)
+    end
   end
 end
