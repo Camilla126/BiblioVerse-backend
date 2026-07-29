@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_29_001515) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_29_001943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_001515) do
     t.index ["story_id"], name: "index_chapters_on_story_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.bigint "post_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "follows", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "followed_id", null: false
@@ -56,6 +66,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_001515) do
     t.index ["followed_id"], name: "index_follows_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_follows_on_follower_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "likeable_id", null: false
+    t.string "likeable_type", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+    t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_and_likeable", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -83,6 +104,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_001515) do
     t.index ["created_at"], name: "index_posts_on_created_at"
     t.index ["kind"], name: "index_posts_on_kind"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.integer "rating", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["book_id"], name: "index_reviews_on_book_id"
+    t.index ["user_id", "book_id"], name: "index_reviews_on_user_id_and_book_id", unique: true
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "stories", force: :cascade do |t|
@@ -137,12 +170,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_29_001515) do
   end
 
   add_foreign_key "chapters", "stories"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "likes", "users"
   add_foreign_key "notifications", "users"
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "posts", "books"
   add_foreign_key "posts", "users"
+  add_foreign_key "reviews", "books"
+  add_foreign_key "reviews", "users"
   add_foreign_key "stories", "users"
   add_foreign_key "user_achievements", "achievements"
   add_foreign_key "user_achievements", "users"
