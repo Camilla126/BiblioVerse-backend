@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :user_achievements, dependent: :destroy
   has_many :achievements, through: :user_achievements
 
+  has_many :notifications, dependent: :destroy
+
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :handle, uniqueness: true, allow_nil: true
